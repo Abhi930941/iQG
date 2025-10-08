@@ -1,0 +1,378 @@
+% extends "layout.html" %}
+{% block content %}
+<html>
+  <head>
+    <title>How it Works</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- bootstrap - 3.3.7 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bootstrap-3.3.7/css/bootstrap.min.css') }}"
+    />
+    <script src="{{ url_for('static', filename='jQuery/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
+
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+        background-color: #1b3c48;
+      }
+
+      /* Desktop Animation Styles */
+      .allcan { 
+        width: 20px; 
+        height: 60px; 
+        position: absolute; 
+        border: 1px solid #10e9ff; 
+        z-index: 1; 
+        border-radius: 10px; 
+        background-color: white; 
+      }
+      
+      .allcircle { 
+        padding: 10px; 
+        border-radius: 50%; 
+        display: inline-block; 
+        background-color: grey; 
+        position: absolute; 
+        margin: 112px -19px; 
+        z-index: 2; 
+      }
+      
+      .allcircle img { 
+        width: 20px; 
+        height: 20px; 
+      }
+      
+      .board { 
+        position: absolute; 
+        border-radius: 10px; 
+        padding-top: 41px; 
+        font-family: cursive; 
+        left: 0; 
+        background-color: #326d88; 
+        color: white; 
+        text-align: center; 
+        display: none; 
+        top: 0; 
+        z-index: 1; 
+        width: 200px; 
+        height: 100px; 
+        border: 1px solid #326d88; 
+      }
+      
+      .panel-primary { 
+        display: none; 
+        border-radius: 20px !important; 
+        background-color: #326d88; 
+      }
+      
+      .panel-body { 
+        border-radius: 20px !important; 
+        background-color: #326d88; 
+        color: white; 
+        font-size: 15px; 
+        min-height: 70px; 
+        max-height: 70px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+      }
+
+      /* Navigation */
+      .navbar { 
+        margin-bottom: 0; 
+        background-color: #2c3e50; 
+        border: none; 
+        border-radius: 0; 
+      }
+      .navbar-brand { 
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+      }
+      .navbar-brand img { 
+        height: 50px;
+        width: auto;
+        object-fit: contain;
+      }
+      .navbar-nav>li>a { 
+        color: #ecf0f1 !important; 
+        padding: 20px 15px; 
+        transition: background-color 0.3s; 
+      }
+      .navbar-nav>li>a:hover { 
+        background-color: #34495e; 
+      }
+      .navbar-toggle { 
+        border: 1px solid #ecf0f1; 
+      }
+      .navbar-toggle .icon-bar { 
+        background-color: #ecf0f1; 
+      }
+
+      /* Content */
+      .content-container { 
+        padding-top: 80px; 
+      }
+
+      /* Mobile Alternative View */
+      .mobile-steps {
+        display: none;
+        padding: 20px;
+        color: white;
+        text-align: center;
+      }
+
+      .mobile-step {
+        background: linear-gradient(135deg, #326d88 0%, #2c3e50 100%);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .mobile-step::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #10e9ff, #cd9cf2);
+      }
+
+      .mobile-step-number {
+        background: #10e9ff;
+        color: #1b3c48;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .mobile-step h4 {
+        color: #10e9ff;
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .mobile-step p {
+        color: rgba(255,255,255,0.9);
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      /* ----------------- Mobile Responsive Fix ----------------- */
+      @media(max-width: 767px) {
+        /* Hide desktop animation completely on mobile */
+        .desktop-animation {
+          display: none !important;
+        }
+
+        /* Show mobile alternative */
+        .mobile-steps {
+          display: block !important;
+        }
+
+        /* Ensure proper mobile layout */
+        .content-container {
+          padding-top: 70px;
+        }
+
+        .mobile-steps {
+          padding: 10px;
+        }
+
+        .mobile-step {
+          margin-bottom: 15px;
+          padding: 15px;
+        }
+
+        .mobile-step h4 {
+          font-size: 16px;
+        }
+
+        .mobile-step p {
+          font-size: 14px;
+        }
+      }
+
+      /* Desktop - hide mobile version */
+      @media(min-width: 768px) {
+        .mobile-steps {
+          display: none !important;
+        }
+        .desktop-animation {
+          display: block !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Responsive Navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#howItWorksNavbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/home">
+            <img src="{{ url_for('static', filename='images/logoimg.png') }}" alt="iQGenerator Logo">
+          </a>
+        </div>
+        <div id="howItWorksNavbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li><a href="/TutorialList"><span class="glyphicon glyphicon-list-alt"></span> Learn</a></li>
+            <li class="active"><a href="/HowItWorks"><span class="glyphicon glyphicon-transfer"></span> How It Works</a></li>
+            <li><a href="/History"><span class="glyphicon glyphicon-stats"></span> History</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="content-container">
+      <!-- Desktop Animation View -->
+      <div id="ab" class="desktop-animation">
+        <div class="row" style="margin-top:5px">
+          <!-- Left canvas & steps -->
+          <div style="position: relative" class="col-lg-4 col-lg-offset-3 col-md-4 col-md-offset-3 col-sm-4 col-sm-offset-3">
+            <span style="margin-left: 20px">
+              <canvas id="myCanvas" class="allcan"></canvas>
+              <span id="circ1" class="allcircle" style="margin:50px -10px">
+                <img class="manImg" src="{{ url_for('static', filename='images/right.png') }}" />
+              </span>
+              <span id="disp1" class="board" style="margin:18px 74px"></span>
+
+              <canvas id="myCanvas2" class="allcan" style="margin:83px 0px"></canvas>
+              <span id="circ12" class="allcircle" style="margin:134px -10px">
+                <img class="manImg" src="{{ url_for('static', filename='images/right.png') }}" />
+              </span>
+              <span id="disp12" class="board" style="margin:108px -183px"></span>
+
+              <canvas id="myCanvas3" class="allcan" style="margin:166px 0px"></canvas>
+              <span id="circ13" class="allcircle" style="margin:218px -10px">
+                <img class="manImg" src="{{ url_for('static', filename='images/right.png') }}" />
+              </span>
+              <span id="disp13" class="board" style="margin:187px 71px"></span>
+
+              <canvas id="myCanvas4" class="allcan" style="margin:250px 0px"></canvas>
+              <span id="circ14" class="allcircle" style="margin:301px -10px">
+                <img class="manImg" src="{{ url_for('static', filename='images/right.png') }}" />
+              </span>
+              <span id="disp14" class="board" style="margin:278px -184px"></span>
+
+              <canvas id="myCanvas5" class="allcan" style="margin:333px 0px"></canvas>
+              <span id="circ15" class="allcircle" style="margin:383px -10px">
+                <img class="manImg" src="{{ url_for('static', filename='images/right.png') }}" />
+              </span>
+              <span id="disp15" class="board" style="margin:354px 71px"></span>
+
+              <canvas id="myCanvas6" class="allcan" style="margin:415px 0px"></canvas>
+              <span id="circ16" class="allcircle" style="margin:466px -10px">
+                <img class="manImg" src="{{ url_for('static', filename='images/right.png') }}" />
+              </span>
+              <span id="disp16" class="board" style="margin:440px -186px"></span>
+
+              <canvas id="myCanvas7" class="allcan" style="margin:499px 0px"></canvas>
+            </span>
+          </div>
+
+          <!-- Right side panels (Desktop Only) -->
+          <div class="col-lg-4 col-md-5 col-sm-5">
+            <div class="about">
+              <div class="panel panel-primary" id="pan1"><div class="panel-body">Web Scrapping is the process of extracting data from web without visiting any website.</div></div>
+              <div class="panel panel-primary" id="pan2"><div class="panel-body">Text summarization is the process of shortening a text document using AI Technique.</div></div>
+              <div class="panel panel-primary" id="pan3"><div class="panel-body">Selection of most Important word from the sentences.</div></div>
+              <div class="panel panel-primary" id="pan4"><div class="panel-body">Question formation.</div></div>
+              <div class="panel panel-primary" id="pan5"><div class="panel-body">Generation of appropriate option.</div></div>
+              <div class="panel panel-primary" id="pan6"><div class="panel-body">User can take test.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Steps View -->
+      <div class="mobile-steps">
+        <h2 style="color: #10e9ff; text-align: center; margin-bottom: 30px; font-weight: 600;">How iQGenerator Works</h2>
+        
+        <div class="mobile-step">
+          <div class="mobile-step-number">1</div>
+          <h4>Web Scrapping</h4>
+          <p>Extract data from web sources without manual browsing</p>
+        </div>
+
+        <div class="mobile-step">
+          <div class="mobile-step-number">2</div>
+          <h4>Text Summarization</h4>
+          <p>Process and summarize content using AI technology</p>
+        </div>
+
+        <div class="mobile-step">
+          <div class="mobile-step-number">3</div>
+          <h4>Key Word Selection</h4>
+          <p>Identify the most important words from sentences</p>
+        </div>
+
+        <div class="mobile-step">
+          <div class="mobile-step-number">4</div>
+          <h4>Question Formation</h4>
+          <p>Generate meaningful questions from the content</p>
+        </div>
+
+        <div class="mobile-step">
+          <div class="mobile-step-number">5</div>
+          <h4>Option Generation</h4>
+          <p>Create appropriate multiple choice options</p>
+        </div>
+
+        <div class="mobile-step">
+          <div class="mobile-step-number">6</div>
+          <h4>Take Test</h4>
+          <p>Users can take the generated quiz and evaluate performance</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Animation JavaScript -->
+    <script>
+      // Only run animation on desktop
+      if (window.innerWidth >= 768) {
+        var c = document.getElementById('myCanvas');
+        var ctx = c.getContext('2d');
+        var y=0,x=0,z=0,m=0,n=0,p=0,q=0;
+
+        function draw(){ if(y<204){ var grd=ctx.createLinearGradient(0,0,c.width,c.height); grd.addColorStop(0,'#cd9cf2'); grd.addColorStop(1,'#453a94'); ctx.fillStyle=grd; ctx.fillRect(0,0,500,y);} y+=3; if(y===204){$('#circ1').css({'background-color':'#10e9ff'}); $('#disp1').show(1000).append('WEB SCRAPPING'); $('#pan1').slideDown(1000); mark();} }
+        function draw2(){var d=document.getElementById('myCanvas2'); var ctx2=d.getContext('2d'); if(x<204){var grd=ctx2.createLinearGradient(0,0,d.width,d.height); grd.addColorStop(0,'#cd9cf2'); grd.addColorStop(1,'#453a94'); ctx2.fillStyle=grd; ctx2.fillRect(0,0,500,x);} x+=2; if(x===204){$('#circ12').css({'background-color':'#10e9ff'}); $('#disp12').show(1000).append('TEXT SUMMARIZATION'); $('#pan2').slideDown(1000); mark1();}}
+        function draw3(){var e=document.getElementById('myCanvas3'); var ctx3=e.getContext('2d'); if(z<204){var grd=ctx3.createLinearGradient(0,0,e.width,e.height); grd.addColorStop(0,'#cd9cf2'); grd.addColorStop(1,'#453a94'); ctx3.fillStyle=grd; ctx3.fillRect(0,0,500,z);} z+=2; if(z===204){$('#circ13').css({'background-color':'#10e9ff'}); $('#disp13').show(1000).append('GAP SELECTION'); $('#pan3').slideDown(1000); mark2();}}
+        function draw4(){var e=document.getElementById('myCanvas4'); var ctx4=e.getContext('2d'); if(m<204){var grd=ctx4.createLinearGradient(0,0,e.width,e.height); grd.addColorStop(0,'#cd9cf2'); grd.addColorStop(1,'#453a94'); ctx4.fillStyle=grd; ctx4.fillRect(0,0,500,m);} m+=2; if(m===204){$('#circ14').css({'background-color':'#10e9ff'}); $('#disp14').show(1000).append('QUESTION FORMATION'); $('#pan4').slideDown(1000); mark3();}}
+        function draw5(){var e=document.getElementById('myCanvas5'); var ctx5=e.getContext('2d'); if(n<204){var grd=ctx5.createLinearGradient(0,0,e.width,e.height); grd.addColorStop(0,'#cd9cf2'); grd.addColorStop(1,'#453a94'); ctx5.fillStyle=grd; ctx5.fillRect(0,0,500,n);} n+=2; if(n===204){$('#circ15').css({'background-color':'#10e9ff'}); $('#disp15').show(1000).append('OPTION GENERATION'); $('#pan5').slideDown(1000); mark4();}}
+        function draw6(){var e=document.getElementById('myCanvas6'); var ctx6=e.getContext('2d'); if(p<204){var grd=ctx6.createLinearGradient(0,0,e.width,e.height); grd.addColorStop(0,'#cd9cf2'); grd.addColorStop(1,'#453a94'); ctx6.fillStyle=grd; ctx6.fillRect(0,0,500,p);} p+=2; if(p===204){$('#circ16').css({'background-color':'#10e9ff'}); $('#disp16').show(1000).append('TAKE TEST'); $('#pan6').slideDown(1000); mark5();}}
+        function draw7(){var e=document.getElementById('myCanvas7'); var ctx7=e.getContext('2d'); if(q<204){var grd=ctx7.createLinearGradient(0,0,e.width,e.height); grd.addColorStop(0,'#cd9cf2'); grd.addColorStop(1,'#453a94'); ctx7.fillStyle=grd; ctx7.fillRect(0,0,500,q);} q+=2;}
+        setInterval(draw,15); function mark(){setInterval(draw2,15);} function mark1(){setInterval(draw3,15);} function mark2(){setInterval(draw4,15);} function mark3(){setInterval(draw5,15);} function mark4(){setInterval(draw6,15);} function mark5(){setInterval(draw7,15);}
+      }
+
+      // Auto collapse navbar on mobile
+      $('#howItWorksNavbar .nav a').on('click', function() {
+        $('.navbar-collapse').collapse('hide');
+      });
+    </script>
+  </body>
+</html>
+
+{% endblock content %}

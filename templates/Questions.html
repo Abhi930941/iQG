@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Title -->
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title>iQGenerator</title>
+    {% endif %}
+
+    <!-- bootstrap - 3.3.7 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bootstrap-3.3.7/css/bootstrap.min.css') }}"
+    />
+
+    <!-- jQuery - 3.3.1 -->
+    <script src="{{ url_for('static', filename='jQuery/jquery-3.3.1.min.js') }}"></script>
+
+    <!--Custom CSS-->
+    <link
+      href="{{ url_for('static', filename='css/Questions.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style>
+      .btn-round {
+        padding: 9px 16px;
+        border-radius: 50%;
+      }
+
+      .border {
+        min-height: 95vh;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="col-lg-3 col-md-3 col-sm-3 padding">
+      <div class="border">
+        <!-- - - - - - - - - circular progress bar - - - - - - - - -->
+        <div class="padding5px">
+          <h4 class="text-center">Time Left</h4>
+          <hr />
+          <div class="progress blue">
+            <span class="progress-left" id="progress-left">
+              <span class="progress-bar"></span>
+            </span>
+            <span class="progress-right" id="progress-right">
+              <span class="progress-bar"></span>
+            </span>
+            <div class="progress-value"><span id="timer"></span></div>
+          </div>
+        </div>
+
+        <!-- - - - - - - - - Question index - - - - - - - - -->
+        <div class="padding5px">
+          <hr />
+          <h4 class="text-center">Questions to Attempt</h4>
+          <hr />
+          <!-- JavaScript -->
+          <script>
+            var n = 0;
+          </script>
+
+          {% for post in posts %}
+          <!-- JavaScript -->
+          <script>
+            n++;
+          </script>
+
+          <div
+            class="col-lg-3 col-md-3 col-sm-4 col-xs-3 text-center"
+            style="padding: 7px"
+          >
+            <span class="padding3px"
+              ><span class="btn btn-round btn-default" id="Quiz{{loop.index}}"
+                >{{loop.index}}</span
+              ></span
+            >
+          </div>
+          {% endfor %}
+          <div
+            style="position: absolute; bottom: 10px; padding: 2%; width: 97.35%"
+          >
+            <div
+              class="text-center col-lg-11 col-md-12 col-sm-12 col-xs-10"
+              style="padding: 5px"
+            >
+              <button class="btn btn-danger btn-block" id="exit">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- - - - - - - - - - - Question and Options - - - - - - - - - - -->
+    <div class="col-lg-9 col-md-9 col-sm-9 padding">
+      <div class="border">
+        <div class="col-lg-12">
+          {% for post in posts %} {% set outer_loop = loop %}
+          <div class="padding" id="QuestionSet{{loop.index}}">
+            <h4 style="text-align: justify; font-size: 1.37em">
+              {{ post.Question }}
+            </h4>
+            {% for option in post.Options %}
+            <div class="box">
+              <input
+                id="radio-{{ outer_loop.index }}{{loop.index}}"
+                class="radio-custom"
+                name="radio-group{{ outer_loop.index }}"
+                type="radio"
+                value="{{ option }}"
+              />
+              <label
+                for="radio-{{ outer_loop.index }}{{loop.index}}"
+                class="radio-custom-label"
+                >{{option}}</label
+              >
+            </div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div style="position: absolute; bottom: 0px; padding: 2%; width: 97.35%">
+        <div
+          class="text-center col-lg-3 col-md-3 col-sm-6 col-xs-6"
+          style="padding: 5px"
+        >
+          <button class="btn btn-primary btn-block" id="review">
+            Make for Review
+          </button>
+        </div>
+        <div
+          class="text-center col-lg-3 col-md-3 col-sm-6 col-xs-6"
+          style="padding: 5px"
+        >
+          <button class="btn btn-primary btn-block" id="reset">Reset</button>
+        </div>
+        <div
+          class="text-center col-lg-3 col-md-3 col-sm-6 col-xs-6"
+          style="padding: 5px"
+        >
+          <button class="btn btn-primary btn-block" id="skip">Skip</button>
+        </div>
+        <div
+          class="text-center col-lg-3 col-md-3 col-sm-6 col-xs-6"
+          style="padding: 5px"
+        >
+          <button class="btn btn-primary btn-block" id="save">
+            Save and Next
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        for (var i = 1; i <= n; i++) {
+          if (i < 10) {
+            $('#Quiz' + i).css('padding', '9px 16px');
+          } else {
+            $('#Quiz' + i).css('padding', '9px 12px');
+          }
+        }
+      });
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        var answer = [];
+        for (var i = 1; i <= n; i++) {
+          answer.push(null);
+        }
+        currentQuiz = 1;
+        for (var i = 2; i <= n; i++) {
+          $('#QuestionSet' + i).hide();
+        }
+        $('#Quiz' + currentQuiz).addClass('btn-danger');
+
+        $('#save').click(function () {
+          if (
+            $('input[name=radio-group' + currentQuiz + ']:checked').val() ==
+            undefined
+          ) {
+            $('#Quiz' + currentQuiz).removeClass('btn-success');
+            $('#Quiz' + currentQuiz).addClass('btn-danger');
+            $('#Quiz' + currentQuiz).removeClass('btn-primary');
+            currentQuiz = changePage(currentQuiz);
+          } else {
+            $('#Quiz' + currentQuiz).addClass('btn-success');
+            $('#Quiz' + currentQuiz).removeClass('btn-danger');
+            $('#Quiz' + currentQuiz).removeClass('btn-primary');
+            answer[currentQuiz - 1] = $(
+              'input[name=radio-group' + currentQuiz + ']:checked'
+            ).val();
+            currentQuiz = changePage(currentQuiz);
+          }
+        });
+
+        $('#review').click(function () {
+          $('#Quiz' + currentQuiz).addClass('btn-primary');
+          $('#Quiz' + currentQuiz).removeClass('btn-success');
+          $('#Quiz' + currentQuiz).removeClass('btn-danger');
+          currentQuiz = changePage(currentQuiz);
+        });
+
+        $('#skip').click(function () {
+          if (
+            $('input[name=radio-group' + currentQuiz + ']:checked').val() ==
+            undefined
+          ) {
+            $('#Quiz' + currentQuiz).addClass('btn-danger');
+            $('#Quiz' + currentQuiz).removeClass('btn-success');
+            $('#Quiz' + currentQuiz).removeClass('btn-primary');
+            currentQuiz = changePage(currentQuiz);
+          } else {
+            currentQuiz = changePage(currentQuiz);
+          }
+        });
+
+        $('#reset').click(function () {
+          answer[currentQuiz - 1] = null;
+          $('input[name=radio-group' + currentQuiz + ']').prop(
+            'checked',
+            false
+          );
+        });
+
+        $('#exit').click(function () {
+          var remainingQ = n + 1;
+          for (var i = 0; i <= n; i++) {
+            if (answer[i] !== null) {
+              remainingQ--;
+            }
+          }
+          if (remainingQ == 0) {
+            var result = { answers: answer };
+            window.location.href = '/Result/' + answer;
+          } else {
+            if (
+              confirm(
+                'Are you sure you want to exit?\nYou are left with ' +
+                  remainingQ +
+                  ' Questions'
+              )
+            ) {
+              window.location.href = '/Result/' + answer;
+            }
+          }
+        });
+
+        for (var i = 1; i <= n; i++) {
+          $('#Quiz' + i).on('click', changeQuestionNumber);
+        }
+
+        function changeQuestionNumber() {
+          $('#QuestionSet' + currentQuiz).hide();
+          currentQuiz = $.trim($(this).text());
+
+          if ($('#Quiz' + currentQuiz).hasClass('btn-success')) {
+          } else if ($('#Quiz' + currentQuiz).hasClass('btn-primary')) {
+          } else {
+            $('#Quiz' + currentQuiz).addClass('btn-danger');
+          }
+          $('#QuestionSet' + currentQuiz).show();
+        }
+
+        var counter = 0;
+        var timeleft = 10 * 60;
+        $('.progress .progress-right .progress-bar').css(
+          'animation',
+          'loading-1 ' + timeleft / 2 + 's linear forwards'
+        );
+        $('.progress.blue .progress-left .progress-bar').css(
+          'animation',
+          'loading-2 ' +
+            timeleft / 2 +
+            's linear forwards ' +
+            timeleft / 2 +
+            's'
+        );
+
+        setInterval(function () {
+          counter++;
+          var time = timeleft - counter;
+          var min = Math.floor(time / 60);
+          var sec = time % 60;
+          if (time == 0) {
+            alert('Test Over');
+            window.location.href = '/Result/' + answer;
+          }
+          $('#timer').text(min + ' : ' + sec);
+        }, 1000);
+      });
+      function changePage(currentQuiz) {
+        $('#QuestionSet' + currentQuiz).hide();
+        if (currentQuiz == n) {
+          currentQuiz = 1;
+        } else {
+          currentQuiz++;
+        }
+        $('#QuestionSet' + currentQuiz).show();
+
+        if ($('#Quiz' + currentQuiz).hasClass('btn-success')) {
+        } else if ($('#Quiz' + currentQuiz).hasClass('btn-primary')) {
+        } else {
+          $('#Quiz' + currentQuiz).addClass('btn-danger');
+        }
+        return currentQuiz;
+      }
+    </script>
+  </body>
+</html>

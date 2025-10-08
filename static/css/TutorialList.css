@@ -1,0 +1,150 @@
+body {
+  background-color: #afbdc7;
+}
+.learn {
+  position: absolute;
+  border-radius: 10px;
+  top: 9%;
+  height: 82%;
+  width: 92%;
+  display: none;
+  background-image: linear-gradient(to top, #44d7d8 0%, #d7cee2fd 100%);
+}
+.learn > input[type='button'] {
+  margin-top: 45px;
+  width: 30%;
+  height: 41px;
+  border-radius: 36px;
+  border: none;
+  background-color: #fbfbfb;
+}
+.padding20 {
+  padding: 50px 0px 50px 0px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 0px black;
+  color: #050505;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.learn > input[type='button']:hover {
+  color: black;
+}
+
+.content {
+  text-align: -webkit-center;
+}
+.content {
+  padding: 15px;
+}
+.content:hover {
+  transform: scale(1.03);
+}
+.btn-primary {
+  background-color: #e0e2e4;
+  border-color: #ffffff;
+  color: black;
+  margin-left: 10px;
+}
+input[type='file'] {
+  display: none;
+}
+input[type='submit'] {
+  padding: 11px;
+  width: 100%;
+  height: 42px;
+  border-radius: 20px;
+}
+
+#start {
+  background-color: #07587e;
+  border-radius: 10px;
+  color: white;
+}
+
+.clever-catagory {
+  width: 100%;
+  height: 180px;
+  position: relative;
+  z-index: 1;
+  padding: 1rem !important;
+}
+.bg-img-1 {
+  background-image: url('../images/books.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.bg-img-2 {
+  background-image: url('../images/notebook.jpeg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.clever-catagory::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  content: '';
+  background-image: linear-gradient(to bottom right, #002f4b, #dc4225);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.heading {
+  color: white;
+  font-weight: 700;
+}
+
+.form-box {
+  background: #fff;
+  max-width: 556px;
+  padding: 5px 0px 5px 5px;
+  margin: 0 auto;
+  justify-content: space-between !important;
+}
+
+.search-btn {
+  border-radius: 0;
+  color: #fff;
+  background-image: linear-gradient(to bottom right, #67acd4, #d26752);
+  position: relative;
+  left: -4px;
+  font-size: 14px;
+  padding: 10px 31px;
+  border: 0;
+}
+
+.input-box {
+  border-color: transparent;
+  width: 79.9%;
+  padding: 8px;
+  padding-left: 20px;
+}
+.input-box:focus {
+  outline: none;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.center {
+  margin: 250px auto;
+  padding: 10px;
+  width: 120px;
+  background-color: White;
+  border-radius: 10px;
+}
+.center img {
+  height: 100px;
+  width: 100px;
+}

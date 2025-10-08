@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PDF reader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+      body {
+        background: #f4f6f9;
+      }
+
+      /* ✅ Navbar style same as home.html */
+      .navbar {
+        margin-bottom: 0;
+        background-color: #2c3e50;
+        border: none;
+        border-radius: 0;
+      }
+      .navbar-brand {
+        padding: 5px 15px;
+      }
+      .navbar-brand img {
+        height: 50px;
+      }
+      .navbar-nav > li > a {
+        color: #ecf0f1 !important;
+        padding: 20px 15px;
+        transition: background-color 0.3s;
+      }
+      .navbar-nav > li > a:hover {
+        background-color: #34495e;
+      }
+      .navbar-toggle {
+        border: 1px solid #ecf0f1;
+      }
+      .navbar-toggle .icon-bar {
+        background-color: #ecf0f1;
+      }
+
+      /* ✅ Content container */
+      .content-container {
+        padding-top: 100px;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .jumbotron > h2 {
+        text-align: center;
+      }
+
+      /* ✅ Mobile adjustments */
+      @media (max-width: 767px) {
+        .jumbotron {
+          padding: 20px;
+        }
+        .jumbotron > h2 {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ✅ Responsive Navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#resultFileNavbar"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/home">
+            <img src="{{ url_for('static', filename='images/logoimg.png') }}" alt="iQGenerator Logo" />
+          </a>
+        </div>
+        <div id="resultFileNavbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li><a href="/TutorialList"><span class="glyphicon glyphicon-list-alt"></span> Learn</a></li>
+            <li><a href="/HowItWorks"><span class="glyphicon glyphicon-transfer"></span> How It Works</a></li>
+            <li><a href="/History"><span class="glyphicon glyphicon-stats"></span> History</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ✅ Main Content -->
+    <div class="content-container">
+      {{ message }}
+    </div>
+
+    <script>
+      // auto close navbar on mobile after click
+      $('#resultFileNavbar .nav a').on('click', function () {
+        $('.navbar-collapse').collapse('hide');
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>iQGenerator - Tutorial List</title>
+
+    <!-- bootstrap - 3.3.7 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bootstrap-3.3.7/css/bootstrap.min.css') }}"
+    />
+
+    <!-- jQuery - 3.3.1 -->
+    <script src="{{ url_for('static', filename='jQuery/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
+
+    <!--Custom CSS-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/TutorialList.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/loader.css') }}"
+    />
+    
+    <!-- Navigation bar styles -->
+    <style>
+      .navbar {
+        margin-bottom: 0;
+        background-color: #2c3e50;
+        border: none;
+        border-radius: 0;
+      }
+      .navbar-brand {
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+      }
+      .navbar-brand img {
+        height: 50px;
+        width: auto;
+        object-fit: contain;
+      }
+      .navbar-nav > li > a {
+        color: #ecf0f1 !important;
+        padding: 20px 15px;
+        transition: background-color 0.3s;
+      }
+      .navbar-nav > li > a:hover {
+        background-color: #34495e;
+      }
+      .navbar-toggle {
+        border: 1px solid #ecf0f1;
+      }
+      .navbar-toggle .icon-bar {
+        background-color: #ecf0f1;
+      }
+      
+      /* Mobile Navigation Improvements */
+      @media (max-width: 767px) {
+        .navbar-nav {
+          margin: 0;
+        }
+        .navbar-nav > li > a {
+          padding: 15px 20px;
+          border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .navbar-nav > li:last-child > a {
+          border-bottom: none;
+        }
+        .navbar-collapse {
+          border-top: 1px solid rgba(255,255,255,0.1);
+          margin-top: 10px;
+        }
+        .navbar-brand img {
+          height: 50px;
+        }
+        .navbar-brand {
+          padding: 10px 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Responsive Navigation Bar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <!-- Mobile hamburger button and logo -->
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#tutorialNavbar"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/home">
+            <img src="{{ url_for('static', filename='images/logoimg.png') }}" alt="iQGenerator Logo">
+          </a>
+        </div>
+        
+        <!-- Collapsible navigation menu -->
+        <div id="tutorialNavbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/home"><span class="glyphicon glyphicon-home"></span> Home</a>
+            </li>
+            <li class="active">
+              <a href="/TutorialList"><span class="glyphicon glyphicon-list-alt"></span> Learn</a>
+            </li>
+            <li>
+              <a href="/HowItWorks"><span class="glyphicon glyphicon-transfer"></span> How It Works</a>
+            </li>
+            <li>
+              <a href="/History"><span class="glyphicon glyphicon-stats"></span> History</a>
+            </li>
+            <li>
+              <a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content with padding to account for fixed navbar -->
+    <div style="padding-top: 80px;">
+      <div class="clever-catagory bg-img-1">
+        <h2 class="heading text-center">Select Your Topics</h2>
+      </div>
+      <br />
+
+      <div class="container">
+        <div class="clever-catagory bg-img-2">
+          <h3 class="heading text-center">
+            Upload a PDF File here to Generate Questions
+          </h3>
+          <form
+            action="/uploader"
+            method="POST"
+            class="form-box"
+            enctype="multipart/form-data"
+          >
+            <input type="file" name="file" id="inputfile" />
+            <label for="inputfile" class="input-box" id="upload-label"
+              >Select file here..</label
+            >
+            <button type="submit" class="search-btn" id="upload-btn">
+              Upload
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- JavaScript -->
+        <script>
+          var n = 0;
+        </script>
+        {% for post in posts %}
+        <!-- JavaScript -->
+        <script>
+          n++;
+        </script>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 content">
+          <div
+            class="padding20 text-center"
+            id="{{ post.Id }}"
+            style="background-color: white"
+          >
+            {{ post.TopicName }}
+            <div class="learn" style="position: absolute">
+              <input
+                type="button"
+                class="btn btn-primary"
+                value="Learn"
+                id="learn-{{ post.Id }}"
+              />
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="modal">
+          <div class="loader">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <h1>Loading</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        // File upload handler
+        $('input[type="file"]').change(function (e) {
+          $('#upload-label').text(e.target.files[0].name);
+        });
+        
+        // Topic card hover effect
+        $('.padding20').hover(function () {
+          $('.learn', this).slideToggle(200);
+        });
+
+        // Learn button click handlers
+        var id;
+        for (var i = 1; i <= n; i++) {
+          $('#learn-' + i).on('click', redirectUrl);
+        }
+
+        function redirectUrl() {
+          var id = this.id.split('-')[1];
+          var url = $.trim($('#' + id).text());
+          url = url.replace(/ /g, '_');
+          $('.modal').show();
+          window.location.href = '/TopicContent/' + url;
+        }
+
+        // Upload button validation
+        $('#upload-btn').click(function () {
+          if ($('#inputfile').val() == '') {
+            alert('select a file first to upload');
+          } else {
+            var arr = $('#inputfile').val().split('\\');
+            var arr1 = arr[arr.length - 1].split('.');
+            if (arr1[arr1.length - 1] != 'pdf') {
+              alert('Select a pdf file only');
+            } else {
+              $('.modal').show();
+            }
+          }
+        });
+
+        // Tutorial list JSON (keeping existing functionality)
+        $.ajax({
+          url: " {{url_for('static', filename='json/tutorialList.json') }}",
+          method: 'GET',
+          success: function (response) {
+            console.log(response);
+          },
+        });
+
+        // Mobile navigation: Auto-collapse on menu item click
+        $('#tutorialNavbar .nav a').on('click', function() {
+          if ($(window).width() < 768) {
+            $('.navbar-collapse').collapse('hide');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

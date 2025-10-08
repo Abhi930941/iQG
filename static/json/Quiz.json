@@ -1,0 +1,169 @@
+{
+    "Quiz" : [
+        {
+            "Id" : 1,
+            "Question" : "Which of the following functional interface represents a supplier of Boolean-valued results?",
+            "Options" : [
+                    "BooleanSupplier",
+                    "Consumer<T>",
+                    "DoubleBinaryOperator",
+                    "DoubleConsumer"
+            ],
+            "Answer" : "BooleanSupplier"
+        },
+        {
+            "Id" : 2,
+            "Question" : "Which of the following function of Array object returns true if at least one element in this array satisfies the provided testing function?",
+            "Options" : [
+                    "reverse()",
+                    "shift()",
+                    "slice()",
+                    "some()"
+            ],
+            "Answer" : "some()"
+        },
+        {
+            "Id" : 3,
+            "Question" : "Which of the following defines a measurement in screen pixels?",
+            "Options" : [
+                    "px",
+                    "vh",
+                    "vw",
+                    "vmin"
+            ],
+            "Answer" : "px"
+        },
+        {
+            "Id" : 4,
+            "Question" : "A subquery can be placed in which of the SQL clauses?",
+            "Options" : [
+                    "The WHERE clause",
+                    "The HAVING clause",
+                    "The FROM clause",
+                    "All of the above."
+            ],
+            "Answer" : "All of the above."
+        },
+        {
+            "Id" : 5,
+            "Question" : "Which of the following defines a measurement in picas?",
+            "Options" : [
+                    "in",
+                    "mm",
+                    "pc",
+                    "pt"
+            ],
+            "Answer" : "pc"
+        },
+        {
+            "Id" : 6,
+            "Question" : "Which of the following is true about the CREATE TABLE statement?",
+            "Options" : [
+                    "This is a DML statement.",
+                    "This statement also record information in the data dictionary.",
+                    "You don’t need any privilege to use this statement.",
+                    "All of the above."
+            ],
+            "Answer" : "This statement also record information in the data dictionary.yy"
+        },
+        {
+            "Id" : 7,
+            "Question" : "Which of the following defines a measurement relative to a font's x-height?",
+            "Options" : [
+                    "%",
+                    "cm",
+                    "em",
+                    "ex"
+            ],
+            "Answer" : "ex"
+        },
+        {
+            "Id" : 8,
+            "Question" : "Which of the following selector matches a element based on its id?",
+            "Options" : [
+                    "The Id Selector",
+                    "The Universal Selector",
+                    "The Descendant Selecto",
+                    "The Class Selector"
+            ],
+            "Answer" : "The Id Selector"
+        },
+        {
+            "Id" : 9,
+            "Question" : "Which of the following is an advantage of using JavaScript?",
+            "Options" : [
+                    "Less server interaction",
+                    "Immediate feedback to the visitors",
+                    "Increased interactivity",
+                    "All of the above"
+            ],
+            "Answer" : "All of the above"
+        },
+        {
+            "Id" : 10,
+            "Question" : "Which built-in method returns the index within the calling String object of the first occurrence of the specified value?",
+            "Options" : [
+                    "getIndex()",
+                    "location()",
+                    "indexOf()",
+                    "None of the above."
+            ],
+            "Answer" : "indexOf()"
+        },
+        {
+            "Id" : 11,
+            "Question" : "Which built-in method returns the string representation of the number's value?",
+            "Options" : [
+                    "toValue()",
+                    "toNumber()",
+                    "toString()",
+                    "None of the above."
+            ],
+            "Answer" : "toString()"
+        },
+        {
+            "Id" : 12,
+            "Question" : "Which of the following function of String object combines the text of two strings and returns a new string?",
+            "Options" : [
+                    "add()",
+                    "merge()",
+                    "concat()",
+                    "append()"
+            ],
+            "Answer" : "concat()"
+        },
+        {
+            "Id" : 13,
+            "Question" : "Which of the following function of String object returns the characters in a string beginning at the specified location through the specified number of characters?",
+            "Options" : [
+                    "slice()",
+                    "split()",
+                    "substr()",
+                    "search()"
+            ],
+            "Answer" : "substr()"
+        },
+        {
+            "Id" : 14,
+            "Question" : "Which of the following function of String object returns the calling string value converted to lower case while respecting the current locale?",
+            "Options" : [
+                    "toLocaleLowerCase()",
+                    "toLowerCase()",
+                    "toString()",
+                    "substring()"
+            ],
+            "Answer" : "toLocaleLowerCase()"
+        },
+        {
+            "Id" : 15,
+            "Question" : "Which of the following function of String object causes a string to be displayed as a superscript, as if it were in a <sup> tag?",
+            "Options" : [
+                    "sup()",
+                    "small()",
+                    "strike()",
+                    "sub()"
+            ],
+            "Answer" : "sup()"
+        }
+    ]
+}

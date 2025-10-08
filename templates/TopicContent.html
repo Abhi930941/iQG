@@ -1,0 +1,261 @@
+{% extends "layout.html" %} {% block content %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/sidebar.css') }}"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/loader.css') }}"
+/>
+
+<style>
+  .sidebar {
+    background-color: #f1f1f1;
+    /*width: 10%;*/
+    position: fixed !important;
+    height: 87%;
+    overflow: auto;
+  }
+  .sidebar div {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+    background-color: #00b0ff;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    font-weight: bolder;
+  }
+  .sidebar div:hover {
+    background-color: #3099c8;
+  }
+
+  .paragraph {
+    font-size: 15px;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  .center {
+    margin: 250px auto;
+    padding: 10px;
+    width: 120px;
+    background-color: White;
+    border-radius: 10px;
+  }
+  .center img {
+    height: 100px;
+    width: 100px;
+  }
+
+  .content-wrapper {
+    background-color: #f1f1f1;
+    position: fixed !important;
+    width: 82.3%;
+    height: 87%;
+    text-align: justify;
+  }
+
+  .footer-btn {
+    padding: 7px;
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+  .mid-content {
+    height: 80%;
+    overflow: auto;
+    padding: 0px 20px;
+  }
+  .heading h2 {
+    text-align: center;
+    background-color: #444646;
+    color: white;
+    padding: 10px;
+    margin-top: 0px;
+    width: 100%;
+
+    /* background-color: antiquewhite;  */
+  }
+  .heading {
+    box-shadow: 0px 4px 6px 0px black;
+  }
+
+  .navigation-btn {
+    background-color: #00b0ff;
+    padding: 8px;
+    width: 100px;
+    color: white;
+  }
+  .navigation-btn:hover {
+    background-color: #3099c8;
+    color: white;
+  }
+</style>
+
+<style></style>
+<div class="mid-container">
+  <div>
+    <div class="sidebar col-lg-2 col-md-2 col-sm-2 hidden-xs">
+      {% for heading in message.sample_text %}
+      <div class="active" id="Topic-{{ loop.index }}">
+        {{ heading.TopicName }}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div
+      class="col-lg-10 col-sm-10 col-md-10 col-xs-12 col-lg-offset-2 col-sm-offset-2 col-md-offset-2"
+    >
+      <div class="content-wrapper">
+        <div class="heading">
+          <h2 id="heading">{{message.Id}}</h2>
+        </div>
+
+        <div class="mid-content">
+          <div>
+            <!-- JavaScript -->
+            <script>
+              var n = 0;
+            </script>
+            {% for paragraphs in message.sample_text %}
+            <!-- JavaScript -->
+            <script>
+              n++;
+            </script>
+
+            <div id="para-block-{{ loop.index }}">
+              <h2>{{ paragraphs.TopicName }}</h2>
+
+              {% for para in paragraphs.Content %} {% if para.type == 'P' %}
+              <p>{{ para.text }}</p>
+
+              {% else %}
+              <h3>{{ para.text }}</h3>
+              {% endif %} {% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="footer-btn">
+          <button class="btn navigation-btn pull-left" id="Previous">
+            Previous
+          </button>
+          <button class="btn navigation-btn pull-right" id="Next">Next</button>
+
+          <button class="btn navigation-btn pull-right" id="TakeQuiz">
+            Take Quiz
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal">
+  <div class="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <h1>Loading</h1>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    var paraindex = 1;
+    for (var i = paraindex; i <= n; i++) {
+      if (i != 1) $('#para-block-' + i).hide();
+    }
+    $('#Previous').hide();
+    $('#TakeQuiz').hide();
+    $('#Next').click(function () {
+      if (paraindex != n) {
+        $('#para-block-' + paraindex).hide();
+        paraindex++;
+        $('#para-block-' + paraindex).show();
+        // $("#para-block-"+paraindex).css("color","red");
+        $('#Previous').show();
+      }
+      if (paraindex == n) {
+        $('#Next').hide();
+        $('#TakeQuiz').show();
+      }
+    });
+
+    $('#Previous').click(function () {
+      if (paraindex != 1) {
+        $('#para-block-' + paraindex).hide();
+        paraindex--;
+        $('#para-block-' + paraindex).show();
+      }
+      if (paraindex == 1) {
+        $('#Previous').hide();
+      }
+      if (paraindex != n) {
+        $('#Next').show();
+        $('#TakeQuiz').hide();
+      }
+    });
+
+    for (var i = 1; i <= n; i++) {
+      $('#Topic-' + i).on('click', changeTopic);
+    }
+
+    function changeTopic() {
+      $('#para-block-' + paraindex).hide();
+      paraindex = this.id.split('-')[1];
+      $('#para-block-' + paraindex).show();
+      if (paraindex == 1) {
+        $('#Previous').hide();
+        $('#TakeQuiz').hide();
+        $('#Next').show();
+      } else if (paraindex > 1 && paraindex < n) {
+        $('#Previous').show();
+        $('#TakeQuiz').hide();
+        $('#Next').show();
+      } else {
+        $('#Previous').show();
+        $('#TakeQuiz').show();
+        $('#Next').hide();
+      }
+      console.log(this.id.split('-')[1]);
+    }
+    $('#oneme').click(function () {
+      var x = $this.find('.off').text();
+      if (x === 'Off') {
+        alert(x);
+      }
+      alert('ok');
+    });
+
+    $('#TakeQuiz').click(function () {
+      var topic_name = $('#heading').text();
+      // topic_name = topic_name.charAt(0).toUpperCase() + topic_name.slice(1).toLowerCase();
+      topic_name =
+        topic_name.charAt(0).toUpperCase() + topic_name.slice(1).toLowerCase();
+      // console.log(topic_name);
+
+      $('.modal').show();
+      window.location.href = '/Questions/' + topic_name;
+    });
+  });
+</script>
+
+{% endblock content %}

@@ -1,0 +1,88 @@
+{
+    "Topics" : [
+        {
+            "Id" : 1,
+            "TopicName" : "Linear Regression"
+        },
+        {
+            "Id" : 2,
+            "TopicName" : "Artificial Intelligence"
+        },
+        {
+            "Id" : 3,
+            "TopicName" : "Machine Learning"
+        },
+        {
+            "Id" : 4,
+            "TopicName" : "K-nearest neighbors algorithm"
+        },
+        {
+            "Id" : 5,
+            "TopicName" : "Supervised learning"
+        },
+        {
+            "Id" : 6,
+            "TopicName" : "Unsupervised learning"
+        },
+        {
+            "Id" : 7,
+            "TopicName" : "Reinforcement Learning"
+        },
+        {
+            "Id" : 8,
+            "TopicName" : "Logistic regression"
+        },
+        {
+            "Id" : 9,
+            "TopicName" : "Decision Tree"
+        },
+        {
+            "Id" : 10,
+            "TopicName" : "Naive Bayes classifier"
+        },
+        {
+            "Id" : 11,
+            "TopicName" : "K-means clustering"
+        },
+        {
+            "Id" : 12,
+            "TopicName" : "Random Forest"
+        },
+        {
+            "Id" : 13,
+            "TopicName" : "Dimensionality reduction"
+        },
+        {
+            "Id" : 14,
+            "TopicName" : "Gradient boosting"
+        },
+        {
+            "Id" : 15,
+            "TopicName" : "Convolutional neural network"
+        },
+        {
+            "Id" : 16,
+            "TopicName" : "Recurrent Neural Network"
+        },
+        {
+            "Id" : 17,
+            "TopicName" : "Gradient Descent"
+        },
+        {
+            "Id" : 18,
+            "TopicName" : "Artificial Neural Network"
+        },
+        {
+            "Id" : 19,
+            "TopicName" : "Long short-term memory"
+        },
+        {
+            "Id" : 20,
+            "TopicName" : "Generative adversarial network"
+        },
+        {
+            "Id" : 21,
+            "TopicName" : "Support Vector Machine"
+        }
+    ]
+}

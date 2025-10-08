@@ -1,0 +1,641 @@
+<html>
+  <head>
+    <title>Question Generator</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- bootstrap - 3.3.7 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bootstrap-3.3.7/css/bootstrap.min.css') }}"
+    />
+
+    <!-- jQuery - 3.3.1 -->
+    <script src="{{ url_for('static', filename='jQuery/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
+
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!--Custom CSS-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/home.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+    
+    <!-- Navigation bar + Enhanced Footer styles -->
+    <style>
+      .navbar {
+        margin-bottom: 0;
+        background-color: #2c3e50;
+        border: none;
+        border-radius: 0;
+      }
+      .navbar-brand {
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+      }
+      .navbar-brand img {
+        height: 50px;
+        width: auto;
+        object-fit: contain;
+      }
+      .navbar-nav > li > a {
+        color: #ecf0f1 !important;
+        padding: 20px 15px;
+        transition: background-color 0.3s;
+      }
+      .navbar-nav > li > a:hover {
+        background-color: #34495e;
+      }
+      .navbar-toggle {
+        border: 1px solid #ecf0f1;
+      }
+      .navbar-toggle .icon-bar {
+        background-color: #ecf0f1;
+      }
+      
+      /* Enhanced Professional Footer Styles */
+      .footer {
+        background: linear-gradient(135deg, #1e3a5f 0%, #2c3e50 50%, #34495e 100%);
+        color: white;
+        padding: 4.5rem 0 1.5rem;
+        margin-top: 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 20% 50%, rgba(16, 233, 255, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 50%, rgba(119, 82, 156, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+      }
+      
+      .footer-content {
+        position: relative;
+        z-index: 2;
+      }
+      
+      .footer-brand {
+        margin-bottom: 2.5rem;
+        text-align: center;
+      }
+      
+      .footer-brand-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .footer-brand-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #3498db 0%, #8e44ad 50%, #e74c3c 100%);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+        animation: footerIconGlow 3s ease-in-out infinite alternate;
+      }
+      
+      @keyframes footerIconGlow {
+        0% { box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3); }
+        100% { box-shadow: 0 12px 35px rgba(142, 68, 173, 0.4); }
+      }
+      
+      .footer-brand-text {
+        font-size: 2rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #3498db 0%, #8e44ad 50%, #e74c3c 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+      }
+      
+      .footer-brand p {
+        opacity: 0.9;
+        line-height: 1.7;
+        font-size: 1rem;
+        max-width: 400px;
+        margin: 0 auto;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      
+      .footer-section h6 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: white;
+        position: relative;
+        padding-bottom: 0.5rem;
+      }
+      
+      .footer-section h6::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: linear-gradient(90deg, #3498db, #8e44ad);
+        border-radius: 2px;
+      }
+      
+      .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .footer-links li {
+        margin-bottom: 1rem;
+        transform: translateX(0);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 0.95rem;
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .footer-links a::before {
+        content: '→';
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: all 0.3s ease;
+        color: #3498db;
+      }
+      
+      .footer-links a:hover {
+        color: white;
+        transform: translateX(8px);
+      }
+      
+      .footer-links a:hover::before {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      
+      .social-section {
+        text-align: center;
+      }
+      
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      
+      .social-link {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 1.4rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .social-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+      }
+      
+      .social-link:hover::before {
+        left: 100%;
+      }
+      
+      .social-link:hover {
+        background: linear-gradient(135deg, #3498db 0%, #8e44ad 50%, #e74c3c 100%);
+        transform: translateY(-3px) scale(1.05);
+        color: white;
+        box-shadow: 0 15px 35px rgba(52, 152, 219, 0.4);
+      }
+      
+      .contact-info {
+        margin-top: 1.5rem;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+      }
+      
+      .contact-info p {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.95rem;
+      }
+      
+      .contact-info .fas {
+        color: #3498db;
+        font-size: 1.1rem;
+      }
+      
+      .footer-divider {
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        margin: 3rem 0 2rem;
+      }
+      
+      .footer-copyright {
+        text-align: center;
+        opacity: 0.8;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.6;
+        padding: 1rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.1);
+      }
+      
+      .footer-copyright .highlight {
+        color: #3498db;
+        font-weight: 600;
+      }
+      
+      /* Mobile Responsive Footer */
+      @media (max-width: 767px) {
+        .footer {
+          padding: 3rem 0 1rem;
+        }
+        
+        .footer-brand-container {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        
+        .footer-brand-text {
+          font-size: 1.5rem;
+        }
+        
+        .footer-section h6 {
+          text-align: center;
+          margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h6::after {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        
+        .footer-links {
+          text-align: center;
+        }
+        
+        .footer-links a {
+          justify-content: center;
+        }
+        
+        .social-links {
+          gap: 1rem;
+        }
+        
+        .social-link {
+          width: 45px;
+          height: 45px;
+          font-size: 1.2rem;
+        }
+        
+        .contact-info {
+          text-align: center;
+        }
+      }
+      
+      /* Professional Animation for Footer Elements */
+      .footer-section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+      
+      .footer-section:nth-child(2) { animation-delay: 0.1s; }
+      .footer-section:nth-child(3) { animation-delay: 0.2s; }
+      .footer-section:nth-child(4) { animation-delay: 0.3s; }
+      
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#homeNavbar"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/home">
+            <img src="{{ url_for('static', filename='images/logoimg.png') }}" alt="iQGenerator Logo">
+          </a>
+        </div>
+        <div id="homeNavbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active">
+              <a href="/home"><span class="glyphicon glyphicon-home"></span> Home</a>
+            </li>
+            <li>
+              <a href="/TutorialList"><span class="glyphicon glyphicon-list-alt"></span> Learn</a>
+            </li>
+            <li>
+              <a href="/HowItWorks"><span class="glyphicon glyphicon-transfer"></span> How It Works</a>
+            </li>
+            <li>
+              <a href="/History"><span class="glyphicon glyphicon-stats"></span> History</a>
+            </li>
+            <li>
+              <a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content with padding to account for fixed navbar -->
+    <div style="padding-top: 80px;">
+      <div class="parllel" id="one" style="position: relative">
+        <div class="row" id="top">
+          <div class="col-lg-7 col-lg-offset-1 top">
+            <h1>Intelligent Question Generator</h1>
+            <p style="color: white; text-align: justify">
+              Question-answering systems are referred to as intelligent systems
+              that can be used to provide responses for the questions being asked
+              by the user based on certain facts or rules stored in the knowledge
+              base. So the accuracy of a question-answering system to provide a
+              correct response depends on the rules or facts stored in the
+              knowledge base.
+            </p>
+            <div class="col-lg-6">
+              <input type="button" id="getstart" value="Get Started" />
+            </div>
+          </div>
+        </div>
+        <a href="#second" id="godown"><span class="fas fa-chevron-down"></span></a>
+      </div>
+
+      <div class="jumbotron" id="second">
+        <h1 class="h1">Whats Inside</h1>
+      </div>
+
+      <div class="parllel" id="two">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 whatinside">
+            <div><span class="fas fa-hand-pointer ablogo"></span></div>
+            <div>
+              <h3>Select Your Topics</h3>
+              <p>you can select topics of your choice to learn from it.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 whatinside">
+            <div><span class="fas fa-book-open ablogo"></span></div>
+            <div>
+              <h3>Learn from Topics</h3>
+              <p>you can learn the content from the selected topics by you.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 whatinside">
+            <div><span class="fas fa-question ablogo"></span></div>
+            <div>
+              <h3>Take Test</h3>
+              <p>
+                you can take a test from the selected topics generated in the
+                application.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-offset-2 col-md-offset-2 col-lg-4 col-md-4 whatinside">
+            <div><span class="fas fa-chart-line ablogo"></span></div>
+            <div>
+              <h3>Evaluate Yourself</h3>
+              <p>the result will be generate from the quiz you are taken.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 whatinside">
+            <div><span class="fas fa-book ablogo"></span></div>
+            <div>
+              <h3>Upload/Learn PDF</h3>
+              <p>you can upload your own pdf and make a quiz and evaluate.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="jumbotron" id="exptopic">
+        <h1 class="h1">Explorer Our Topics</h1>
+      </div>
+
+      <div class="parllel" id="three">
+        <div class="container">
+          <div class="row" id="toppics">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+              <div class="topone">
+                <div class="flip-card">
+                  <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                      <img
+                        id="img"
+                        src="{{ url_for('static', filename='images/ai2.png') }}"
+                        alt="Avatar"
+                        style="max-height: 200px; min-height: 200px; width: 100%"
+                      />
+                    </div>
+                    <div class="flip-card-back" style="width: 100%; background-color: lightgray; color: black;">
+                      <p style="margin: 80px 0px; font-size: 18px; font-weight: 700;">
+                        Artificial Intelligence<br />
+                        <a href="/TopicContent/Artificial Intelligence">Learn more</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+              <div class="topone">
+                <div class="flip-card">
+                  <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                      <img
+                        id="img"
+                        src="{{ url_for('static', filename='images/deep.jpg') }}"
+                        alt="Avatar"
+                        style="max-height: 200px; min-height: 200px; width: 100%"
+                      />
+                    </div>
+                    <div class="flip-card-back" style="width: 100%; background-color: lightgray; color: black;">
+                      <p style="margin: 80px 0px; font-size: 18px; font-weight: 700;">
+                        Machine Learning<br />
+                        <a href="/TopicContent/Machine learning">Learn more</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+              <div class="topone">
+                <div class="flip-card">
+                  <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                      <img
+                        id="img"
+                        src="{{ url_for('static', filename='images/machine.png') }}"
+                        alt="Avatar"
+                        style="max-height: 200px; min-height: 200px; width: 100%"
+                      />
+                    </div>
+                    <div class="flip-card-back" style="width: 100%; background-color: lightgray; color: black;">
+                      <p style="margin: 80px 0px; font-size: 18px; font-weight: 700;">
+                        Deep Learning<br />
+                        <a href="/TopicContent/deep learning">Learn more</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12" style="text-align: center">
+              <input type="button" id="learn" class="btn btn-info" value="Learn More" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced Professional Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 col-md-6 mb-4 footer-section">
+                <div class="footer-brand">
+                  <div class="footer-brand-container">
+                    <div class="footer-brand-icon">
+                      <i class="fas fa-brain"></i>
+                    </div>
+                    <span class="footer-brand-text">iQGenerator</span>
+                  </div>
+                  <p>Intelligent question generation platform powered by advanced AI technology. Transform your learning experience with automated quiz creation and comprehensive performance analytics.</p>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-3 mb-4 footer-section">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                  <li><a href="#top">Home</a></li>
+                  <li><a href="#second">Features</a></li>
+                  <li><a href="#exptopic">Topics</a></li>
+                  <li><a href="/HowItWorks">How It Works</a></li>
+                </ul>
+              </div>
+              <div class="col-lg-3 col-md-3 mb-4 footer-section">
+                <h6>Platform Features</h6>
+                <ul class="footer-links">
+                  <li><a href="/TutorialList">Topic Selection</a></li>
+                  <li><a href="/TutorialList">Interactive Learning</a></li>
+                  <li><a href="/TutorialList">Smart Quiz Generation</a></li>
+                  <li><a href="/History">Performance Analytics</a></li>
+                </ul>
+              </div>
+              <div class="col-lg-3 col-md-12 mb-4 footer-section">
+                <div class="social-section">
+                  <h6>Connect With Us</h6>
+                  <div class="social-links">
+                    <a href="https://www.facebook.com/share/1A39yLUvhp/" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/sahaniabhisek311?igsh=MW1nNmE1MGpkdnY3ZA==" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/abhishek-sahani-447851341" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                  </div>
+                  <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> abhishek242443@gmail.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="footer-copyright">
+              <p>&copy;<span class="highlight">iQGenerator</span> by Sahani Abhishek. All rights reserved.<br>
+              Designed for educational excellence and innovative learning experiences.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // buttons
+      $('#getstart').click(function () {
+        window.location.href = '/TutorialList';
+      });
+      $('#learn').click(function () {
+        window.location.href = '/TutorialList';
+      });
+      // navbar collapse hide on click (mobile)
+      $('#homeNavbar .nav a').on('click', function () {
+        $('.navbar-collapse').collapse('hide');
+      });
+    </script>
+  </body>
+</html>

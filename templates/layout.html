@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Title -->
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title>iQGenerator</title>
+    {% endif %}
+
+    <!-- bootstrap - 3.3.7 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bootstrap-3.3.7/css/bootstrap.min.css') }}"
+    />
+
+    <!-- jQuery - 3.3.1 -->
+    <script src="{{ url_for('static', filename='jQuery/jquery-3.3.1.min.js') }}"></script>
+
+    <!--Custom CSS-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target="#myNavbar"
+          >
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div style="max-width: 100px">
+            <a href="/"
+              ><img
+                src="{{ url_for('static', filename='images/logoimg.png') }}"
+                style="width: 55%"
+            /></a>
+          </div>
+        </div>
+        <div class="one-navbar collapse navbar-collapse" id="myNavbar">
+          <ul id="drop" class="nav one-navbar navbar-nav navbar-right">
+            <li>
+              <a href="/"
+                ><span class="glyphicon glyphicon-home"></span> Home</a
+              >
+            </li>
+            <li>
+              <a href="/TutorialList"
+                ><span class="glyphicon glyphicon-list-alt"></span> Learn
+              </a>
+            </li>
+            <li>
+              <a href="/HowItWorks"
+                ><span class="glyphicon glyphicon-transfer"></span> How It
+                Works</a
+              >
+            </li>
+            <!-- <li> <input type="checkbox" id="oneme" checked data-toggle="toggle"></li> -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div style="padding-top: 72px">{% block content %}{% endblock %}</div>
+  </body>
+</html>

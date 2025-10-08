@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - iQGenerator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Animated background with particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 30%, rgba(102, 126, 234, 0.4) 0%, transparent 45%),
+                radial-gradient(circle at 85% 70%, rgba(118, 75, 162, 0.4) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(240, 147, 251, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 25% 75%, rgba(79, 172, 254, 0.3) 0%, transparent 40%);
+            animation: backgroundPulse 30s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.15), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.1), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.1), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.1), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.1), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: particleMove 25s linear infinite;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        @keyframes particleMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-200px, -100px); }
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.1); }
+        }
+
+        /* Neural network animation */
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .neural-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(74, 144, 226, 0.6);
+            border-radius: 50%;
+            animation: neuralPulse 3s ease-in-out infinite;
+        }
+
+        .neural-line {
+            position: absolute;
+            background: linear-gradient(90deg, 
+                rgba(74, 144, 226, 0) 0%, 
+                rgba(74, 144, 226, 0.4) 50%, 
+                rgba(74, 144, 226, 0) 100%);
+            height: 2px;
+            animation: neuralFlow 4s linear infinite;
+        }
+
+        @keyframes neuralPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes neuralFlow {
+            0% { opacity: 0; transform: scaleX(0); }
+            50% { opacity: 1; transform: scaleX(1); }
+            100% { opacity: 0; transform: scaleX(0); }
+        }
+
+        /* Floating elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 1.5rem;
+            animation: floatElement 20s linear infinite;
+        }
+
+        .floating-element:nth-child(odd) {
+            animation-direction: reverse;
+        }
+
+        @keyframes floatElement {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(180deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .auth-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 28px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 10px 20px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            padding: 3rem;
+            width: 100%;
+            max-width: 460px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .auth-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.2),
+                0 15px 30px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #1e3c72, #2a5298, #4a90e2, #74b9ff, #00cec9, #55a3ff);
+            background-size: 400% 100%;
+            animation: gradientFlow 4s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .brand-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .brand-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+            position: relative;
+            animation: brandPulse 3s ease-in-out infinite;
+            box-shadow: 
+                0 10px 30px rgba(102, 126, 234, 0.4),
+                0 0 0 0 rgba(102, 126, 234, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .brand-icon::after {
+            content: '';
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            opacity: 0.2;
+            animation: brandRipple 3s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .brand-icon::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #667eea, #764ba2, #f093fb, #667eea);
+            opacity: 0.3;
+            animation: brandRotate 4s linear infinite;
+            z-index: -2;
+        }
+
+        @keyframes brandRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes brandPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        @keyframes brandRipple {
+            0% { transform: scale(1); opacity: 0.2; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        .brand-icon i {
+            color: white;
+            font-size: 2.2rem;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .brand-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-subtitle {
+            color: #64748b;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0;
+            opacity: 0.8;
+        }
+
+        .welcome-section h3 {
+            color: #1e293b;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .form-floating {
+            position: relative;
+            margin-bottom: 1.8rem;
+        }
+
+        .form-floating .form-control {
+            height: 3.8rem;
+            padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1.05rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .form-floating .form-control:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 0 4px rgba(42, 82, 152, 0.15);
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        .form-floating label {
+            padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #2a5298;
+            z-index: 3;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-floating .form-control:focus + label + .input-icon {
+            color: #1e3c72;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            height: 3.8rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.15rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+            cursor: pointer;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-login:hover::before {
+            left: 100%;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(30, 60, 114, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(-1px);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+        }
+
+        .divider span {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0 1.5rem;
+            color: #64748b;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.8rem;
+            padding: 1rem;
+            background: rgba(30, 60, 114, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(30, 60, 114, 0.1);
+        }
+
+        .register-link a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .register-link a:hover {
+            color: #1e3c72;
+            text-decoration: none;
+            transform: translateX(3px);
+        }
+
+        .alert {
+            border-radius: 16px;
+            border: none;
+            margin-bottom: 1.8rem;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-danger {
+            background: rgba(248, 215, 218, 0.9);
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .alert-success {
+            background: rgba(212, 237, 218, 0.9);
+            color: #0f5132;
+            border-left: 4px solid #28a745;
+        }
+
+        /* Input validation states */
+        .form-control.is-valid {
+            border-color: #28a745 !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='m2.3 6.73.8-.8L4.25 4.8 6.4 2.65l.8.8-2.95 2.95-1.85-1.85z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1.2rem center;
+            background-size: 1.2rem;
+            padding-right: 3rem;
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc3545 !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 4.2.4.8.4-.8M6 8.5v.5'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1.2rem center;
+            background-size: 1.2rem;
+            padding-right: 3rem;
+        }
+
+        /* Password toggle */
+        .password-toggle {
+            position: absolute;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            cursor: pointer;
+            z-index: 4;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .password-toggle:hover {
+            color: #2a5298;
+            background: rgba(42, 82, 152, 0.1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .password-toggle:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        /* Loading animation */
+        .btn-login.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .btn-login.loading::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: loginSpin 1s linear infinite;
+        }
+
+        @keyframes loginSpin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        /* Features section */
+        .features {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(30, 60, 114, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(30, 60, 114, 0.1);
+        }
+
+        .features h6 {
+            color: #1e3c72;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .feature-item i {
+            color: #2a5298;
+            margin-right: 0.8rem;
+            width: 16px;
+        }
+
+        /* Neural network dots positioning */
+        .neural-dot:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+        .neural-dot:nth-child(2) { top: 40%; left: 25%; animation-delay: 1s; }
+        .neural-dot:nth-child(3) { top: 60%; left: 35%; animation-delay: 2s; }
+        .neural-dot:nth-child(4) { top: 25%; right: 20%; animation-delay: 0.5s; }
+        .neural-dot:nth-child(5) { top: 50%; right: 30%; animation-delay: 1.5s; }
+        .neural-dot:nth-child(6) { top: 75%; right: 15%; animation-delay: 2.5s; }
+
+        /* Neural network lines */
+        .neural-line:nth-child(7) { 
+            top: 22%; left: 18%; width: 150px; 
+            transform: rotate(25deg); animation-delay: 0.5s; 
+        }
+        .neural-line:nth-child(8) { 
+            top: 42%; left: 28%; width: 120px; 
+            transform: rotate(-15deg); animation-delay: 1.5s; 
+        }
+        .neural-line:nth-child(9) { 
+            top: 58%; right: 35%; width: 180px; 
+            transform: rotate(35deg); animation-delay: 2s; 
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .auth-card {
+                max-width: 420px;
+                margin: 0 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .auth-card {
+                margin: 1rem;
+                padding: 2.5rem 2rem;
+                border-radius: 24px;
+                max-width: none;
+            }
+            
+            .brand-icon {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .brand-icon i {
+                font-size: 2rem;
+            }
+            
+            .brand-title {
+                font-size: 2rem;
+            }
+            
+            .form-floating .form-control {
+                height: 3.5rem;
+                padding: 1rem 1rem 1rem 3.2rem;
+                font-size: 1rem;
+            }
+            
+            .form-floating label {
+                padding: 1rem 1rem 1rem 3.2rem;
+                font-size: 0.95rem;
+            }
+            
+            .input-icon {
+                left: 1rem;
+                font-size: 1.1rem;
+            }
+            
+            .password-toggle {
+                right: 1rem;
+                font-size: 0.9rem;
+                padding: 0.4rem;
+            }
+            
+            .btn-login {
+                height: 3.5rem;
+                font-size: 1.1rem;
+            }
+
+            .features {
+                padding: 1.2rem;
+            }
+
+            .feature-item {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 2rem 1.5rem;
+                margin: 0.5rem;
+            }
+            
+            .brand-title {
+                font-size: 1.8rem;
+            }
+            
+            .floating-element {
+                font-size: 1.2rem;
+            }
+            
+            .features {
+                padding: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .form-floating .form-control {
+                height: 3.2rem;
+                padding: 0.9rem 0.9rem 0.9rem 3rem;
+            }
+            
+            .form-floating label {
+                padding: 0.9rem 0.9rem 0.9rem 3rem;
+            }
+            
+            .input-icon {
+                left: 0.9rem;
+            }
+
+            .password-toggle {
+                right: 3rem;
+            }
+
+            .btn-login {
+                height: 3.2rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .auth-card {
+                padding: 1.5rem 1.2rem;
+            }
+            
+            .brand-icon {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .brand-icon i {
+                font-size: 1.8rem;
+            }
+
+            .brand-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Neural Network Background -->
+    <div class="neural-network">
+        <div class="neural-dot"></div>
+        <div class="neural-dot"></div>
+        <div class="neural-dot"></div>
+        <div class="neural-dot"></div>
+        <div class="neural-dot"></div>
+        <div class="neural-dot"></div>
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <i class="fas fa-question-circle floating-element" style="left: 10%; animation-delay: 0s;"></i>
+        <i class="fas fa-lightbulb floating-element" style="left: 20%; animation-delay: 3s;"></i>
+        <i class="fas fa-brain floating-element" style="left: 30%; animation-delay: 6s;"></i>
+        <i class="fas fa-graduation-cap floating-element" style="left: 40%; animation-delay: 9s;"></i>
+        <i class="fas fa-cogs floating-element" style="left: 50%; animation-delay: 12s;"></i>
+        <i class="fas fa-rocket floating-element" style="left: 60%; animation-delay: 15s;"></i>
+        <i class="fas fa-star floating-element" style="left: 70%; animation-delay: 18s;"></i>
+        <i class="fas fa-trophy floating-element" style="left: 80%; animation-delay: 21s;"></i>
+    </div>
+
+    <div class="container">
+        <div class="auth-wrapper">
+            <div class="auth-card">
+                <!-- Brand Section -->
+                <div class="brand-section">
+                    <div class="brand-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h1 class="brand-title">iQGenerator</h1>
+                    <p class="brand-subtitle">Intelligent Question Generation Platform</p>
+                </div>
+
+                <!-- Welcome Section -->
+                <div class="welcome-section">
+                    <h3>Welcome Back!</h3>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-triangle' }} me-2"></i>
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" onsubmit="return validateForm()" id="loginForm" novalidate>
+                        <div class="form-floating">
+                            <input type="text" 
+                                   name="username" 
+                                   id="username" 
+                                   class="form-control" 
+                                   placeholder="Enter your username"
+                                   autocomplete="username"
+                                   required>
+                            <label for="username">Username</label>
+                            <i class="fas fa-user input-icon"></i>
+                        </div>
+
+                        <div class="form-floating">
+                            <input type="password" 
+                                   name="password" 
+                                   id="password" 
+                                   class="form-control" 
+                                   placeholder="Enter your password"
+                                   autocomplete="current-password"
+                                   required 
+                                   minlength="6">
+                            <label for="password">Password</label>
+                            <i class="fas fa-lock input-icon"></i>
+                            <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                        </div>
+
+                        <button type="submit" class="btn btn-login" id="loginBtn">
+                            <i class="fas fa-sign-in-alt me-2"></i>
+                            Login to Continue
+                        </button>
+                    </form>
+
+                    <div class="divider">
+                        <span>New to iQGenerator?</span>
+                    </div>
+
+                    <div class="register-link">
+                        <a href="{{ url_for('register') }}">
+                            <i class="fas fa-user-plus"></i>
+                            Create your account
+                        </a>
+                    </div>
+
+                    <!-- Features Section -->
+                    <div class="features">
+                        <h6>Why Choose iQGenerator?</h6>
+                        <div class="feature-item">
+                            <i class="fas fa-magic"></i>
+                            AI-powered question generation
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-file-pdf"></i>
+                            PDF content analysis
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-chart-line"></i>
+                            Performance tracking
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-globe"></i>
+                            Wikipedia integration
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Enhanced form validation with real-time feedback
+        function validateForm() {
+            const username = document.getElementById("username");
+            const password = document.getElementById("password");
+            const submitBtn = document.getElementById("loginBtn");
+
+            // Reset validation states
+            [username, password].forEach(input => {
+                input.classList.remove('is-valid', 'is-invalid');
+            });
+
+            let isValid = true;
+
+            // Username validation
+            if (!username.value.trim()) {
+                username.classList.add('is-invalid');
+                showAlert("Username is required.", "danger");
+                isValid = false;
+            } else if (username.value.trim().length < 3) {
+                username.classList.add('is-invalid');
+                showAlert("Username must be at least 3 characters.", "danger");
+                isValid = false;
+            } else {
+                username.classList.add('is-valid');
+            }
+
+            // Password validation
+            if (!password.value) {
+                password.classList.add('is-invalid');
+                showAlert("Password is required.", "danger");
+                isValid = false;
+            } else if (password.value.length < 6) {
+                password.classList.add('is-invalid');
+                showAlert("Password must be at least 6 characters.", "danger");
+                isValid = false;
+            } else {
+                password.classList.add('is-valid');
+            }
+
+            if (isValid) {
+                // Add loading state
+                submitBtn.classList.add('loading');
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Logging in...';
+            }
+
+            return isValid;
+        }
+
+        function showAlert(message, type) {
+            // Remove existing alerts
+            const existingAlerts = document.querySelectorAll('.alert');
+            existingAlerts.forEach(alert => alert.remove());
+
+            // Create new alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+
+            // Insert alert before the form
+            const form = document.querySelector('#loginForm');
+            form.parentNode.insertBefore(alertDiv, form);
+
+            // Auto-dismiss after 4 seconds
+            setTimeout(() => {
+                if (alertDiv) {
+                    alertDiv.remove();
+                }
+            }, 4000);
+        }
+
+        // Password visibility toggle
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('togglePassword');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Real-time validation and enhanced UX
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.form-control');
+            const togglePassword = document.getElementById('togglePassword');
+            
+            // Password toggle functionality
+            if (togglePassword) {
+                togglePassword.addEventListener('click', togglePasswordVisibility);
+            }
+            
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    // Remove validation classes on input
+                    this.classList.remove('is-valid', 'is-invalid');
+                });
+
+                input.addEventListener('focus', function() {
+                    // Add focus effect to parent container
+                    this.parentElement.style.transform = 'translateY(-2px)';
+                });
+
+                input.addEventListener('blur', function() {
+                    // Remove focus effect
+                    this.parentElement.style.transform = 'translateY(0)';
+                    
+                    // Basic validation on blur
+                    if (this.value.trim()) {
+                        if (this.id === 'password' && this.value.length >= 6) {
+                            this.classList.add('is-valid');
+                        } else if (this.id === 'username' && this.value.trim().length >= 3) {
+                            this.classList.add('is-valid');
+                        }
+                    }
+                });
+            });
+
+            // Initialize floating elements with random positions and timings
+            const floatingElements = document.querySelectorAll('.floating-element');
+            floatingElements.forEach((element, index) => {
+                element.style.animationDuration = `${15 + Math.random() * 10}s`;
+                element.style.animationDelay = `${index * 2.5}s`;
+                element.style.left = `${10 + (index * 10)}%`;
+            });
+
+            // Add welcome animation
+            const authCard = document.querySelector('.auth-card');
+            authCard.style.opacity = '0';
+            authCard.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                authCard.style.transition = 'all 0.6s ease';
+                authCard.style.opacity = '1';
+                authCard.style.transform = 'translateY(0)';
+            }, 100);
+        });
+
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const focusedElement = document.activeElement;
+                if (focusedElement.id === 'username') {
+                    document.getElementById('password').focus();
+                    e.preventDefault();
+                } else if (focusedElement.id === 'password') {
+                    document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+                    e.preventDefault();
+                }
+            }
+        });
+
+        // Form validation on form reset
+        document.getElementById('loginForm').addEventListener('reset', function() {
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.classList.remove('is-valid', 'is-invalid');
+            });
+        });
