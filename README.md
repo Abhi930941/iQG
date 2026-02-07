@@ -173,7 +173,7 @@ iqgenerator/
 
 **GitHub**: https://github.com/Abhi930941?tab=repositories
 
-**Portfolio**: abhi930941.github.io/Portfolio
+**Portfolio**: https://abhi930941.github.io/Portfolio/
 
 ---
 
