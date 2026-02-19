@@ -152,13 +152,12 @@ iqgenerator/
 
 **Repository**: https://github.com/Abhi930941/iQG
 
-
 **Screenshots:**
 <table>
   <tr>
-    <td><img src="Screenshot 2026-02-19 055156.png" alt="Register & Login Page" /></td>
-    <td><img src="Screenshot 2026-02-19 055543.png" alt="Home Page" /></td>
-    <td><img src="Screenshot 2026-02-19 055621.png" alt="Learn Page" /></td>
+    <td><img src="screenshots/Screenshot 2026-02-19 055156.png" alt="Register & Login Page" /></td>
+    <td><img src="screenshots/Screenshot 2026-02-19 055543.png" alt="Home Page" /></td>
+    <td><img src="screenshots/Screenshot 2026-02-19 055621.png" alt="Learn Page" /></td>
   </tr>
   <tr>
     <td align="center"><b>Register & Login Page</b></td>
@@ -167,9 +166,9 @@ iqgenerator/
   </tr>
 
   <tr>
-    <td><img src="Screenshot 2026-02-19 060008.png" alt="Quiz Page" /></td>
-    <td><img src="Screenshot 2026-02-19 060127.png" alt=" Result" /></td>
-    <td><img src="Screenshot 2026-02-19 060152.png" alt="History Page" /></td>
+    <td><img src="screenshots/Screenshot 2026-02-19 060008.png" alt="Quiz Page" /></td>
+    <td><img src="screenshots/Screenshot 2026-02-19 060127.png" alt=" Result" /></td>
+    <td><img src="screenshots/Screenshot 2026-02-19 060152.png" alt="History Page" /></td>
   </tr>
   <tr>
     <td align="center"><b>Quiz Page</b></td>
