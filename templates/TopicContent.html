@@ -13,7 +13,6 @@
 <style>
   .sidebar {
     background-color: #f1f1f1;
-    /*width: 10%;*/
     position: fixed !important;
     height: 87%;
     overflow: auto;
@@ -86,7 +85,6 @@
     margin-top: 0px;
     width: 100%;
 
-    /* background-color: antiquewhite;  */
   }
   .heading {
     box-shadow: 0px 4px 6px 0px black;
@@ -125,12 +123,12 @@
 
         <div class="mid-content">
           <div>
-            <!-- JavaScript -->
+
             <script>
               var n = 0;
             </script>
             {% for paragraphs in message.sample_text %}
-            <!-- JavaScript -->
+
             <script>
               n++;
             </script>
@@ -190,7 +188,6 @@
         $('#para-block-' + paraindex).hide();
         paraindex++;
         $('#para-block-' + paraindex).show();
-        // $("#para-block-"+paraindex).css("color","red");
         $('#Previous').show();
       }
       if (paraindex == n) {
@@ -247,10 +244,8 @@
 
     $('#TakeQuiz').click(function () {
       var topic_name = $('#heading').text();
-      // topic_name = topic_name.charAt(0).toUpperCase() + topic_name.slice(1).toLowerCase();
       topic_name =
         topic_name.charAt(0).toUpperCase() + topic_name.slice(1).toLowerCase();
-      // console.log(topic_name);
 
       $('.modal').show();
       window.location.href = '/Questions/' + topic_name;

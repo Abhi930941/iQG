@@ -4,17 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>iQGenerator - Tutorial List</title>
 
-    <!-- bootstrap - 3.3.7 -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='bootstrap-3.3.7/css/bootstrap.min.css') }}"
     />
 
-    <!-- jQuery - 3.3.1 -->
     <script src="{{ url_for('static', filename='jQuery/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
 
-    <!--Custom CSS-->
     <link
       rel="stylesheet"
       type="text/css"
@@ -25,8 +22,7 @@
       type="text/css"
       href="{{ url_for('static', filename='css/loader.css') }}"
     />
-    
-    <!-- Navigation bar styles -->
+
     <style>
       .navbar {
         margin-bottom: 0;
@@ -58,8 +54,7 @@
       .navbar-toggle .icon-bar {
         background-color: #ecf0f1;
       }
-      
-      /* Mobile Navigation Improvements */
+
       @media (max-width: 767px) {
         .navbar-nav {
           margin: 0;
@@ -86,10 +81,8 @@
   </head>
 
   <body>
-    <!-- Responsive Navigation Bar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-        <!-- Mobile hamburger button and logo -->
         <div class="navbar-header">
           <button
             type="button"
@@ -107,8 +100,7 @@
             <img src="{{ url_for('static', filename='images/logoimg.png') }}" alt="iQGenerator Logo">
           </a>
         </div>
-        
-        <!-- Collapsible navigation menu -->
+
         <div id="tutorialNavbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li>
@@ -131,7 +123,6 @@
       </div>
     </nav>
 
-    <!-- Content with padding to account for fixed navbar -->
     <div style="padding-top: 80px;">
       <div class="clever-catagory bg-img-1">
         <h2 class="heading text-center">Select Your Topics</h2>
@@ -161,12 +152,12 @@
       </div>
 
       <div class="container">
-        <!-- JavaScript -->
+
         <script>
           var n = 0;
         </script>
         {% for post in posts %}
-        <!-- JavaScript -->
+
         <script>
           n++;
         </script>
@@ -208,17 +199,15 @@
 
     <script>
       $(document).ready(function () {
-        // File upload handler
+
         $('input[type="file"]').change(function (e) {
           $('#upload-label').text(e.target.files[0].name);
         });
-        
-        // Topic card hover effect
+
         $('.padding20').hover(function () {
           $('.learn', this).slideToggle(200);
         });
 
-        // Learn button click handlers
         var id;
         for (var i = 1; i <= n; i++) {
           $('#learn-' + i).on('click', redirectUrl);
@@ -232,7 +221,6 @@
           window.location.href = '/TopicContent/' + url;
         }
 
-        // Upload button validation
         $('#upload-btn').click(function () {
           if ($('#inputfile').val() == '') {
             alert('select a file first to upload');
@@ -247,7 +235,6 @@
           }
         });
 
-        // Tutorial list JSON (keeping existing functionality)
         $.ajax({
           url: " {{url_for('static', filename='json/tutorialList.json') }}",
           method: 'GET',
@@ -256,7 +243,6 @@
           },
         });
 
-        // Mobile navigation: Auto-collapse on menu item click
         $('#tutorialNavbar .nav a').on('click', function() {
           if ($(window).width() < 768) {
             $('.navbar-collapse').collapse('hide');

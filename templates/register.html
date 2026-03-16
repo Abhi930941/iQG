@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* Enhanced animated background with particles */
         body::before {
             content: '';
             position: fixed;
@@ -531,7 +530,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Responsive Design */
         @media (max-width: 992px) {
             .auth-card {
                 max-width: 450px;
@@ -657,7 +655,7 @@
     </style>
 </head>
 <body>
-    <!-- Floating Background Icons -->
+
     <div class="floating-icons">
         <i class="fas fa-brain floating-icon"></i>
         <i class="fas fa-lightbulb floating-icon"></i>
@@ -672,7 +670,6 @@
     <div class="container">
         <div class="auth-wrapper">
             <div class="auth-card">
-                <!-- Brand Section -->
                 <div class="brand-section">
                     <div class="brand-icon">
                         <i class="fas fa-brain"></i>
@@ -772,14 +769,12 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Enhanced form validation with real-time feedback
         function validateForm() {
             const username = document.getElementById("username");
             const password = document.getElementById("password");
             const confirmPassword = document.getElementById("confirm_password");
             const submitBtn = document.getElementById("registerBtn");
 
-            // Reset previous validation states
             [username, password, confirmPassword].forEach(input => {
                 input.classList.remove('is-valid', 'is-invalid');
             });
@@ -826,11 +821,9 @@
             }
 
             if (isValid) {
-                // Add loading state
                 submitBtn.classList.add('loading');
                 submitBtn.innerHTML = '<i class="fas fa-user-plus me-2"></i>Creating Account...';
-                
-                // Show success message
+
                 showAlert("Account creation in progress...", "success");
             }
 
@@ -838,11 +831,9 @@
         }
 
         function showAlert(message, type) {
-            // Remove existing alerts
             const existingAlerts = document.querySelectorAll('.alert');
             existingAlerts.forEach(alert => alert.remove());
 
-            // Create new alert
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
             alertDiv.innerHTML = `
@@ -851,11 +842,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             `;
 
-            // Insert alert before the form
             const form = document.querySelector('#registerForm');
             form.parentNode.insertBefore(alertDiv, form);
 
-            // Auto-dismiss after 5 seconds
             setTimeout(() => {
                 if (alertDiv) {
                     alertDiv.remove();
@@ -879,17 +868,14 @@
             let strength = 0;
             let feedback = '';
 
-            // Length check
             if (password.length >= 8) strength++;
             if (password.length >= 12) strength++;
 
-            // Character variety checks
             if (/[a-z]/.test(password)) strength++;
             if (/[A-Z]/.test(password)) strength++;
             if (/[0-9]/.test(password)) strength++;
             if (/[^A-Za-z0-9]/.test(password)) strength++;
 
-            // Remove previous strength classes
             strengthFill.className = 'strength-fill';
 
             if (strength <= 2) {
@@ -913,7 +899,6 @@
             strengthText.textContent = feedback;
         }
 
-        // Password visibility toggles
         function togglePasswordVisibility(inputId, toggleId) {
             const passwordInput = document.getElementById(inputId);
             const toggleIcon = document.getElementById(toggleId);
@@ -929,14 +914,12 @@
             }
         }
 
-        // Real-time validation and enhanced UX
         document.addEventListener('DOMContentLoaded', function() {
             const inputs = document.querySelectorAll('.form-control');
             const togglePassword = document.getElementById('togglePassword');
             const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
             const passwordInput = document.getElementById('password');
-            
-            // Password toggle functionality
+
             if (togglePassword) {
                 togglePassword.addEventListener('click', () => 
                     togglePasswordVisibility('password', 'togglePassword')
@@ -949,7 +932,6 @@
                 );
             }
 
-            // Password strength checking
             if (passwordInput) {
                 passwordInput.addEventListener('input', function() {
                     checkPasswordStrength(this.value);
@@ -958,20 +940,16 @@
             
             inputs.forEach(input => {
                 input.addEventListener('input', function() {
-                    // Remove validation classes on input
                     this.classList.remove('is-valid', 'is-invalid');
                 });
 
                 input.addEventListener('focus', function() {
-                    // Add focus effect
                     this.parentElement.style.transform = 'translateY(-2px)';
                 });
 
                 input.addEventListener('blur', function() {
-                    // Remove focus effect
                     this.parentElement.style.transform = 'translateY(0)';
                     
-                    // Real-time validation on blur
                     if (this.id === 'username' && this.value.trim().length >= 3) {
                         this.classList.add('is-valid');
                     } else if (this.id === 'password' && this.value.length >= 6) {
@@ -985,14 +963,12 @@
                 });
             });
 
-            // Enhanced floating animations
             const icons = document.querySelectorAll('.floating-icon');
             icons.forEach((icon, index) => {
                 icon.style.animationDuration = `${12 + Math.random() * 8}s`;
                 icon.style.animationDelay = `${index * 2}s`;
             });
 
-            // Welcome animation
             const authCard = document.querySelector('.auth-card');
             authCard.style.opacity = '0';
             authCard.style.transform = 'translateY(30px)';
@@ -1004,7 +980,6 @@
             }, 100);
         });
 
-        // Enhanced keyboard navigation
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 const focusedElement = document.activeElement;
@@ -1018,7 +993,6 @@
             }
         });
 
-        // Form validation on form reset
         document.getElementById('registerForm').addEventListener('reset', function() {
             const inputs = document.querySelectorAll('.form-control');
             inputs.forEach(input => {

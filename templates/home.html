@@ -4,17 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- bootstrap - 3.3.7 -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='bootstrap-3.3.7/css/bootstrap.min.css') }}"
     />
 
-    <!-- jQuery - 3.3.1 -->
     <script src="{{ url_for('static', filename='jQuery/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
 
-    <!-- Font Awesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <!--Custom CSS-->
@@ -31,7 +28,7 @@
       crossorigin="anonymous"
     />
     
-    <!-- Navigation bar + Enhanced Footer styles -->
+    <!-- Navigation bar -->
     <style>
       .navbar {
         margin-bottom: 0;
@@ -63,8 +60,7 @@
       .navbar-toggle .icon-bar {
         background-color: #ecf0f1;
       }
-      
-      /* Enhanced Professional Footer Styles */
+
       .footer {
         background: linear-gradient(135deg, #1e3a5f 0%, #2c3e50 50%, #34495e 100%);
         color: white;
@@ -301,8 +297,7 @@
         color: #3498db;
         font-weight: 600;
       }
-      
-      /* Mobile Responsive Footer */
+
       @media (max-width: 767px) {
         .footer {
           padding: 3rem 0 1rem;
@@ -349,8 +344,7 @@
           text-align: center;
         }
       }
-      
-      /* Professional Animation for Footer Elements */
+
       .footer-section {
         animation: fadeInUp 0.6s ease-out;
       }
@@ -414,7 +408,7 @@
       </div>
     </nav>
 
-    <!-- Content with padding to account for fixed navbar -->
+    <!-- Content -->
     <div style="padding-top: 80px;">
       <div class="parllel" id="one" style="position: relative">
         <div class="row" id="top">
@@ -566,7 +560,6 @@
         </div>
       </div>
 
-      <!-- Enhanced Professional Footer -->
       <footer class="footer">
         <div class="footer-content">
           <div class="container">
@@ -604,8 +597,6 @@
                 <div class="social-section">
                   <h6>Connect With Us</h6>
                   <div class="social-links">
-                    <a href="https://www.facebook.com/share/1A39yLUvhp/" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/sahaniabhisek311?igsh=MW1nNmE1MGpkdnY3ZA==" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.linkedin.com/in/abhishek-sahani-447851341" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                   </div>
                   <div class="contact-info">
@@ -625,14 +616,12 @@
     </div>
 
     <script>
-      // buttons
       $('#getstart').click(function () {
         window.location.href = '/TutorialList';
       });
       $('#learn').click(function () {
         window.location.href = '/TutorialList';
       });
-      // navbar collapse hide on click (mobile)
       $('#homeNavbar .nav a').on('click', function () {
         $('.navbar-collapse').collapse('hide');
       });

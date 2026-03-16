@@ -1,4 +1,4 @@
-% extends "layout.html" %}
+{% extends "layout.html" %}
 {% block content %}
 <html>
   <head>
@@ -6,7 +6,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- bootstrap - 3.3.7 -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='bootstrap-3.3.7/css/bootstrap.min.css') }}"
@@ -21,7 +20,6 @@
         background-color: #1b3c48;
       }
 
-      /* Desktop Animation Styles */
       .allcan { 
         width: 20px; 
         height: 60px; 
@@ -114,12 +112,10 @@
         background-color: #ecf0f1; 
       }
 
-      /* Content */
       .content-container { 
         padding-top: 80px; 
       }
 
-      /* Mobile Alternative View */
       .mobile-steps {
         display: none;
         padding: 20px;
@@ -172,19 +168,14 @@
         margin: 0;
       }
 
-      /* ----------------- Mobile Responsive Fix ----------------- */
       @media(max-width: 767px) {
-        /* Hide desktop animation completely on mobile */
         .desktop-animation {
           display: none !important;
         }
-
-        /* Show mobile alternative */
         .mobile-steps {
           display: block !important;
         }
 
-        /* Ensure proper mobile layout */
         .content-container {
           padding-top: 70px;
         }
@@ -207,7 +198,6 @@
         }
       }
 
-      /* Desktop - hide mobile version */
       @media(min-width: 768px) {
         .mobile-steps {
           display: none !important;
@@ -247,10 +237,8 @@
 
     <!-- Content -->
     <div class="content-container">
-      <!-- Desktop Animation View -->
       <div id="ab" class="desktop-animation">
         <div class="row" style="margin-top:5px">
-          <!-- Left canvas & steps -->
           <div style="position: relative" class="col-lg-4 col-lg-offset-3 col-md-4 col-md-offset-3 col-sm-4 col-sm-offset-3">
             <span style="margin-left: 20px">
               <canvas id="myCanvas" class="allcan"></canvas>
@@ -293,7 +281,6 @@
             </span>
           </div>
 
-          <!-- Right side panels (Desktop Only) -->
           <div class="col-lg-4 col-md-5 col-sm-5">
             <div class="about">
               <div class="panel panel-primary" id="pan1"><div class="panel-body">Web Scrapping is the process of extracting data from web without visiting any website.</div></div>
@@ -307,7 +294,6 @@
         </div>
       </div>
 
-      <!-- Mobile Steps View -->
       <div class="mobile-steps">
         <h2 style="color: #10e9ff; text-align: center; margin-bottom: 30px; font-weight: 600;">How iQGenerator Works</h2>
         
@@ -349,9 +335,7 @@
       </div>
     </div>
 
-    <!-- Desktop Animation JavaScript -->
     <script>
-      // Only run animation on desktop
       if (window.innerWidth >= 768) {
         var c = document.getElementById('myCanvas');
         var ctx = c.getContext('2d');
@@ -367,7 +351,6 @@
         setInterval(draw,15); function mark(){setInterval(draw2,15);} function mark1(){setInterval(draw3,15);} function mark2(){setInterval(draw4,15);} function mark3(){setInterval(draw5,15);} function mark4(){setInterval(draw6,15);} function mark5(){setInterval(draw7,15);}
       }
 
-      // Auto collapse navbar on mobile
       $('#howItWorksNavbar .nav a').on('click', function() {
         $('.navbar-collapse').collapse('hide');
       });

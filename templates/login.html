@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* Enhanced Animated background with particles */
         body::before {
             content: '';
             position: fixed;
@@ -490,7 +489,6 @@
             transform: translateY(-50%) scale(0.95);
         }
 
-        /* Loading animation */
         .btn-login.loading {
             pointer-events: none;
             opacity: 0.8;
@@ -567,7 +565,6 @@
             transform: rotate(35deg); animation-delay: 2s; 
         }
 
-        /* Responsive Design */
         @media (max-width: 992px) {
             .auth-card {
                 max-width: 420px;
@@ -723,7 +720,6 @@
     <div class="container">
         <div class="auth-wrapper">
             <div class="auth-card">
-                <!-- Brand Section -->
                 <div class="brand-section">
                     <div class="brand-icon">
                         <i class="fas fa-brain"></i>
@@ -819,13 +815,11 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Enhanced form validation with real-time feedback
         function validateForm() {
             const username = document.getElementById("username");
             const password = document.getElementById("password");
             const submitBtn = document.getElementById("loginBtn");
 
-            // Reset validation states
             [username, password].forEach(input => {
                 input.classList.remove('is-valid', 'is-invalid');
             });
@@ -859,7 +853,6 @@
             }
 
             if (isValid) {
-                // Add loading state
                 submitBtn.classList.add('loading');
                 submitBtn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Logging in...';
             }
@@ -868,11 +861,9 @@
         }
 
         function showAlert(message, type) {
-            // Remove existing alerts
             const existingAlerts = document.querySelectorAll('.alert');
             existingAlerts.forEach(alert => alert.remove());
 
-            // Create new alert
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
             alertDiv.innerHTML = `
@@ -881,11 +872,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             `;
 
-            // Insert alert before the form
             const form = document.querySelector('#loginForm');
             form.parentNode.insertBefore(alertDiv, form);
 
-            // Auto-dismiss after 4 seconds
             setTimeout(() => {
                 if (alertDiv) {
                     alertDiv.remove();
@@ -909,32 +898,25 @@
             }
         }
 
-        // Real-time validation and enhanced UX
         document.addEventListener('DOMContentLoaded', function() {
             const inputs = document.querySelectorAll('.form-control');
             const togglePassword = document.getElementById('togglePassword');
-            
-            // Password toggle functionality
+
             if (togglePassword) {
                 togglePassword.addEventListener('click', togglePasswordVisibility);
             }
             
             inputs.forEach(input => {
                 input.addEventListener('input', function() {
-                    // Remove validation classes on input
                     this.classList.remove('is-valid', 'is-invalid');
                 });
 
                 input.addEventListener('focus', function() {
-                    // Add focus effect to parent container
                     this.parentElement.style.transform = 'translateY(-2px)';
                 });
 
                 input.addEventListener('blur', function() {
-                    // Remove focus effect
                     this.parentElement.style.transform = 'translateY(0)';
-                    
-                    // Basic validation on blur
                     if (this.value.trim()) {
                         if (this.id === 'password' && this.value.length >= 6) {
                             this.classList.add('is-valid');
@@ -945,7 +927,6 @@
                 });
             });
 
-            // Initialize floating elements with random positions and timings
             const floatingElements = document.querySelectorAll('.floating-element');
             floatingElements.forEach((element, index) => {
                 element.style.animationDuration = `${15 + Math.random() * 10}s`;
@@ -953,7 +934,6 @@
                 element.style.left = `${10 + (index * 10)}%`;
             });
 
-            // Add welcome animation
             const authCard = document.querySelector('.auth-card');
             authCard.style.opacity = '0';
             authCard.style.transform = 'translateY(30px)';
@@ -965,7 +945,6 @@
             }, 100);
         });
 
-        // Enhanced keyboard navigation
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 const focusedElement = document.activeElement;
@@ -979,7 +958,6 @@
             }
         });
 
-        // Form validation on form reset
         document.getElementById('loginForm').addEventListener('reset', function() {
             const inputs = document.querySelectorAll('.form-control');
             inputs.forEach(input => {

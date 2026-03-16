@@ -8,7 +8,6 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 from nltk.tag import pos_tag
 
-# Try to download required NLTK data, but don't fail if not available
 try:
     import ssl
     try:
@@ -239,7 +238,7 @@ class Aqua:
             self.questions = []
 
             if self.sentences:
-                num_sentences = min(10, len(self.sentences))   # ✅ 6 → 10
+                num_sentences = min(10, len(self.sentences))  
                 selected = random.sample(self.sentences, num_sentences)
 
                 for sentence in selected:
@@ -260,7 +259,7 @@ class Aqua:
             if len(self.questions) < 5:
                 self.questions.extend(self.generate_fallback_questions())
 
-            self.questions = self.questions[:10]   # ✅ limit max 10
+            self.questions = self.questions[:10]  
 
             result = {"quiz": self.questions}
             return json.dumps(result, indent=2, ensure_ascii=False)

@@ -19,7 +19,6 @@ from random import shuffle
 from werkzeug.utils import secure_filename
 import PyPDF2
 
-# Optional local import
 try:
     import GenerateQuestion as GenQ
 except Exception as e:
@@ -54,8 +53,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
-    
-    # Relationship with QuizResult
+
     quiz_results = db.relationship('QuizResult', backref='user', lazy=True, cascade='all, delete-orphan')
 
 class QuizResult(db.Model):
@@ -64,8 +62,7 @@ class QuizResult(db.Model):
     correct = db.Column(db.Integer)
     wrong = db.Column(db.Integer)
     score = db.Column(db.Float)
-    
-    # Foreign key to link with User
+
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 # Database initialization
@@ -78,7 +75,6 @@ def init_database():
     except Exception as e:
         print(f"Database initialization error: {e}")
 
-# Initialize database
 init_database()
 
 @login_manager.user_loader
@@ -188,7 +184,6 @@ def HowItWorks():
 @login_required
 def history():
     try:
-        # Only show quiz results for current user
         results = QuizResult.query.filter_by(user_id=current_user.id).order_by(QuizResult.id.desc()).all()
         return render_template('history.html', title='Your Score History', results=results)
     except Exception as e:
@@ -221,7 +216,7 @@ def TopicContent(topic_id: str):
         return redirect(url_for('TutorialList'))
 
 ############################################################
-# Core - Question generation from Wikipedia
+# Question generation from Wikipedia
 ############################################################
 WIKI_HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
@@ -245,8 +240,7 @@ def Questions(topic_name: str):
         if not questions:
             flash('Question generation failed. Showing topic content instead.', 'warning')
             return redirect(url_for('TopicContent', topic_id=topic_name))
-            
-        # Save for result page
+
         session['last_topic'] = topic_name
         _store_scraped_questions(questions)
         return render_template('Questions.html', title='iQGenerator - Quiz', posts=questions)
@@ -257,7 +251,7 @@ def Questions(topic_name: str):
         return redirect(url_for('TopicContent', topic_id=topic_name))
 
 ############################################################
-# Core - Question generation from uploaded PDF
+# Question generation from uploaded PDF
 ############################################################
 ALLOWED_EXTENSIONS = {'.pdf'}
 
@@ -464,7 +458,7 @@ def wiki_scrape_sections(page_id: str):
 def generate_questions(sample_text: str):
     """Use GenQ.Aqua to generate quiz questions with fallback handling."""
     if not GenQ or not hasattr(GenQ, 'Aqua'):
-        # Fallback questions if GenerateQuestion is not available
+
         return [
             {
                 "Question": "What is the primary purpose of machine learning?",
@@ -517,7 +511,7 @@ def generate_questions(sample_text: str):
         
     except Exception as e:
         print(f"Question generation error: {e}")
-        # Return fallback questions
+
         return [
             {
                 "Question": "What is machine learning?",
@@ -546,6 +540,5 @@ if __name__ == '__main__':
             print("=" * 50)
     except Exception as e:
         print(f"Startup database check failed: {e}")
-    
-    # Run the application
+
     app.run(debug=True)

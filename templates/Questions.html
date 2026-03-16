@@ -1,30 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <!-- Title -->
     {% if title %}
     <title>{{title}}</title>
     {% else %}
     <title>iQGenerator</title>
     {% endif %}
 
-    <!-- bootstrap - 3.3.7 -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='bootstrap-3.3.7/css/bootstrap.min.css') }}"
     />
 
-    <!-- jQuery - 3.3.1 -->
     <script src="{{ url_for('static', filename='jQuery/jquery-3.3.1.min.js') }}"></script>
 
-    <!--Custom CSS-->
     <link
       href="{{ url_for('static', filename='css/Questions.css') }}"
       rel="stylesheet"
@@ -46,7 +41,6 @@
   <body>
     <div class="col-lg-3 col-md-3 col-sm-3 padding">
       <div class="border">
-        <!-- - - - - - - - - circular progress bar - - - - - - - - -->
         <div class="padding5px">
           <h4 class="text-center">Time Left</h4>
           <hr />
@@ -61,18 +55,17 @@
           </div>
         </div>
 
-        <!-- - - - - - - - - Question index - - - - - - - - -->
         <div class="padding5px">
           <hr />
           <h4 class="text-center">Questions to Attempt</h4>
           <hr />
-          <!-- JavaScript -->
+
           <script>
             var n = 0;
           </script>
 
           {% for post in posts %}
-          <!-- JavaScript -->
+
           <script>
             n++;
           </script>
